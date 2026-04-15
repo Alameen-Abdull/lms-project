@@ -23,6 +23,18 @@ class LibraryService:
     def list_books(self):
         return list(self.books.values())
 
+    def search_book(self, title):
+        results = []
+        for book in self.books.values():
+            if title.lower() in book.title.lower():
+                results.append(book)
+        return results
+
+    def is_book_available(self, book_id):
+        if book_id not in self.books:
+            return False
+        return self.books[book_id].quantity > 0
+
     # -----------------------------
     # MEMBER MANAGEMENT
     # -----------------------------
@@ -38,6 +50,11 @@ class LibraryService:
 
     def list_members(self):
         return list(self.members.values())
+
+    def get_member_books(self, member_id):
+        if member_id not in self.members:
+            return "Member not found"
+        return self.members[member_id].borrowed_books
 
     # -----------------------------
     # BORROWING SYSTEM

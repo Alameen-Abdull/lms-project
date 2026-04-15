@@ -45,4 +45,17 @@ def test_return_book():
     service.borrow_book(1, 1)
     result = service.return_book(1, 1)
 
-    assert result == "Book returned successfully"    
+    assert result == "Book returned successfully"
+    
+def test_search_book():
+    service = LibraryService()
+
+    book1 = Book(1, "Python Basics", "John", 5)
+    book2 = Book(2, "Java Guide", "Mike", 3)
+
+    service.add_book(book1)
+    service.add_book(book2)
+
+    results = service.search_book("python")
+
+    assert len(results) == 1        
